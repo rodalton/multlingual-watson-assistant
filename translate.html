@@ -5,7 +5,7 @@
   window.watsonAssistantChatOptions = {
       integrationID: "<INTEGRATION_ID>", // The ID of this integration.
       region: "<REGION>", // The region your integration is hosted in.
-      serviceInstanceID: "<SERVICE_ID">, // The ID of your service instance.
+      serviceInstanceID: "<SERVICE_ID>", // The ID of your service instance.
       onLoad: function(instance) {
         instance.on({ type: "pre:receive", handler: preReceiveHandler });
         instance.on({ type: "pre:send", handler: preSendhandler });
