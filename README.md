@@ -6,7 +6,7 @@ Use the code and instructions from this repository to integrate the **Language T
 
 Integration with the Language Translator service is achieved using Watson Assistant [web chat events](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events) and IBM Cloud functions. We use the web chat `pre:send` and `pre:receive` events to call IBM Cloud Functions actions. The IBM Cloud Functions actions make calls to Language Translator REST API. 
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://youtu.be/bQcKz1w6N50)
+[![Launch on YouTube](https://github.com/rodalton/multlingual-watson-assistant/blob/main/launch_video.png)](https://youtu.be/bQcKz1w6N50)
 
 
 ### Solution Outline
