@@ -23,7 +23,7 @@
     const text = event.data.input.text;
     if(text){
       return new Promise(function(resolve) {
-        url='https://eu-gb.functions.appdomain.cloud/api/v1/web/rodalton_dev/default/spa_eng_translate.json?input=' + text;
+        url='<CF_ENDPOINT>.json?input=' + text;
         $.get(url, (t_result, status) => {
           event.data.input.text = t_result.translations[0].translation;
           resolve();
@@ -40,7 +40,7 @@
       if (item.response_type === "text") {
         const text = item.text;
         return new Promise(function (resolve) {
-          translator_url = 'https://eu-gb.functions.appdomain.cloud/api/v1/web/rodalton_dev/default/eng_spa_translate.json?input=' + text;
+          translator_url = '<CF_ENDPOINT>.json?input=' + text;
           $.get(translator_url, (t_result) => {
             item.text = t_result.translations[0].translation;
             resolve();
