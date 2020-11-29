@@ -2,7 +2,9 @@
 
 ### Introduction
 
-Use the code and instructions from this repository to integrate the **Language Translator** service with **Watson Assistant** to build a multilingual chatbot. Integration is achieved using Watson Assistant [web chat events](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events) and IBM Cloud functions. We use the web chat `pre:send` and `pre:receive` events to call IBM Cloud Functions actions. The IBM Cloud Functions actions make calls to Language Translator REST API. 
+Use the code and instructions from this repository to integrate the **Language Translator** service with **Watson Assistant** to build a multilingual chatbot. Wastson Assistant is trained in one language only and uses the Language Translator service to provide realtime, machine translation for other languages. 
+
+Integration with the Language Translator service is achieved using Watson Assistant [web chat events](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events) and IBM Cloud functions. We use the web chat `pre:send` and `pre:receive` events to call IBM Cloud Functions actions. The IBM Cloud Functions actions make calls to Language Translator REST API. 
 
 ### Solution Outline
 
@@ -10,9 +12,6 @@ The sequence diagram below outlines the set of calls made between services. Note
 
 ![](https://github.com/rodalton/multlingual-watson-assistant/blob/main/multilingual_sequence.jpg)
 
-### Pre-requisites
-- Access to IBM Cloud account, you can [register for an account here](https://cloud.ibm.com/registration) 
-- Access to the SDL Machine Translation Edge service
 
 ### Steps to Build
 
