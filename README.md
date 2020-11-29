@@ -6,6 +6,9 @@ Use the code and instructions from this repository to integrate the **Language T
 
 Integration with the Language Translator service is achieved using Watson Assistant [web chat events](https://web-chat.global.assistant.watson.cloud.ibm.com/docs.html?to=api-events) and IBM Cloud functions. We use the web chat `pre:send` and `pre:receive` events to call IBM Cloud Functions actions. The IBM Cloud Functions actions make calls to Language Translator REST API. 
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://youtu.be/bQcKz1w6N50)
+
+
 ### Solution Outline
 
 The sequence diagram below outlines the set of calls made between services. Note the split between `pre:send` and `pre:receive` events. `chat lang` refers to the language the end user i.e. the language of the end user when asking questions of Watson Assistant and the language the end user expects to receive replies. `watson lang` is the language used to define intents, entities and ultimately the dialog in Watson Assistant i.e. the language used to train your virtual assistant. 
