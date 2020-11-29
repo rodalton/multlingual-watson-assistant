@@ -1,0 +1,53 @@
+
+<html>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+  window.watsonAssistantChatOptions = {
+      integrationID: "<INSTANCE_ID>", // The ID of this integration.
+      region: "<REGION>", // The region your integration is hosted in.
+      serviceInstanceID: "<SERVICE_ID">, // The ID of your service instance.
+      onLoad: function(instance) {
+        instance.on({ type: "pre:receive", handler: preReceiveHandler });
+        instance.on({ type: "pre:send", handler: preSendhandler });
+        instance.render();
+      }
+    };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/loadWatsonAssistantChat.js";
+    document.head.appendChild(t);
+  });
+
+  //Translate text sent to Watson Assistant
+  function preSendhandler(event) {
+    const text = event.data.input.text;
+    if(text){
+      return new Promise(function(resolve) {
+        url='https://eu-gb.functions.appdomain.cloud/api/v1/web/rodalton_dev/default/spa_eng_translate.json?input=' + text;
+        $.get(url, (t_result, status) => {
+          event.data.input.text = t_result.translations[0].translation;
+          resolve();
+        });
+      });
+    }
+  }
+
+  //Translate replies from Watson Assistant
+  function preReceiveHandler(event) {
+    const generic = event.data.output.generic;
+    for (let i = 0; i < generic.length; i++) {
+      const item = generic[i];
+      if (item.response_type === "text") {
+        const text = item.text;
+        return new Promise(function (resolve) {
+          translator_url = 'https://eu-gb.functions.appdomain.cloud/api/v1/web/rodalton_dev/default/eng_spa_translate.json?input=' + text;
+          $.get(translator_url, (t_result) => {
+            item.text = t_result.translations[0].translation;
+            resolve();
+          });
+        });
+      }
+    }
+  }
+</script>
+</html>
