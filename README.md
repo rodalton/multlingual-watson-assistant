@@ -30,4 +30,4 @@ The sequence diagram below outlines the set of calls made between services. Note
 2. Include details of your assistant and Cloud Functions actions (from the step above) in the file before launching. 
 
 #### Launch
-Here's the easy bit, once you launch the web chat UI, your assistant should be fully functional, but in a new language thanks to the SDL MTE service! 
+Here's the easy bit, once you launch the web chat UI, your assistant should be fully functional, but in a new language thanks to the Watson Language Translator service! 
