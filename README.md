@@ -8,7 +8,7 @@ Use the code and instructions from this repository to integrate the **Language T
 
 The sequence diagram below outlines the set of calls made between services. Note the split between `pre:send` and `pre:receive` events. `chat lang` refers to the language the end user i.e. the language of the end user when asking questions of Watson Assistant and the language the end user expects to receive replies. `watson lang` is the language used to define intents, entities and ultimately the dialog in Watson Assistant i.e. the language used to train your virtual assistant. 
 
-![](https://github.com/rodalton/multilingual-watson-assistant/blob/main/multilingual_sequence.jpg)
+![](https://github.com/rodalton/multlingual-watson-assistant/blob/main/multilingual_sequence.jpg)
 
 ### Pre-requisites
 - Access to IBM Cloud account, you can [register for an account here](https://cloud.ibm.com/registration) 
