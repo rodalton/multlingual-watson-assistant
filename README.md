@@ -19,7 +19,7 @@ The sequence diagram below outlines the set of calls made between services. Note
 
 1. Use the `translate.js` file from this repository to create two IBM Cloud Functions actions. Use one action to translate text from the end user being sent to Watson Assistant and another to translate the text returned from Watson Assistant before it's returned to the end user in the web chat UI. 
 
-2. Update each action with your SDL MTE API Key and the appropriate `languagePairId`. 
+2. Update each action with your Language Translator API Key and service URL. Also update with the language translator model ID, that'll source and target languages for machine translation. You'll find details of the languages supported by the Language Translator service [here](https://cloud.ibm.com/docs/language-translator?topic=language-translator-translation-models#list-languages-supported). 
 
 3. Finally, allow your Cloud Functions actions to handle HTTP events and expose as a web action. Make a note of the endpoint URL as you'll require this when customising the web chat UI. 
 
