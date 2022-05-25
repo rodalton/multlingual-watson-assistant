@@ -1,5 +1,3 @@
-
-<html>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
   window.watsonAssistantChatOptions = {
@@ -20,34 +18,87 @@
 
   //Translate text sent to Watson Assistant
   function preSendhandler(event) {
+    var pArr = [];
+    var p = null;
     const text = event.data.input.text;
     if(text){
-      return new Promise(function(resolve) {
-        url='<CF_ENDPOINT>.json?input=' + text;
+      p = new Promise(function(resolve) {
+        url='<CF_ENDPOINT_1>.json?input=' + text;
         $.get(url, (t_result, status) => {
           event.data.input.text = t_result.translations[0].translation;
+//          console.log(text.substr(0,50),'[translated to]', t_result.translations[0].translation.substr(0,50));
           resolve();
         });
       });
+      pArr.push(p);
+      return(waitOnPromises(pArr));
     }
+  }
+
+  // Await the completion of an array of promises
+  async function waitOnPromises(pArr) {
+      var i = 0;
+      while (i < pArr.length) {
+          p = pArr[i];
+//          console.log('Waiting for promise to complete', i);
+          await p;
+//          console.log('completed promise', i);
+          i += 1;
+      }
   }
 
   //Translate replies from Watson Assistant
   function preReceiveHandler(event) {
+    var pArr = [];
+    var p = null;
+    const base_url = '<CF_ENDPOINT_2>';
     const generic = event.data.output.generic;
     for (let i = 0; i < generic.length; i++) {
       const item = generic[i];
-      if (item.response_type === "text") {
+      if (item.response_type === "option") {
+        const text = item.title;
+        if (""!=text) {
+//            console.log('Translating', text.substr(0,50));
+            p = new Promise(function (resolve) {
+              translator_url = base_url+'.json?input=' + text;
+              $.get(translator_url, (t_result) => {
+//                console.log(text.substr(0,50),'[translated to]', t_result.translations[0].translation.substr(0,50));
+                item.title = t_result.translations[0].translation;
+                resolve();
+              });
+            });
+            pArr.push(p);
+        }
+        for (let j = 0; j < item.options.length; j++) {
+            const text = item.options[j].label;
+            if (""==text) continue;
+//            console.log('Translating', text.substr(0,50));
+            p = new Promise(function (resolve) {
+              translator_url = base_url+'.json?input=' + text;
+              $.get(translator_url, (t_result) => {
+//                console.log(text.substr(0,50),'[translated to]', t_result.translations[0].translation.substr(0,50));
+                item.options[j].label = t_result.translations[0].translation;
+                resolve();
+              });
+            });
+            pArr.push(p);
+        }
+      } else if (item.response_type === "text") {
         const text = item.text;
-        return new Promise(function (resolve) {
-          translator_url = '<CF_ENDPOINT>.json?input=' + text;
+        if (""==text) continue;
+        p = new Promise(function (resolve) {
+//          console.log('Translating', text.substr(0,50));
+          translator_url = base_url+'.json?input=' + text;
           $.get(translator_url, (t_result) => {
+//            console.log(text.substr(0,50),'[translated to]', t_result.translations[0].translation.substr(0,50));
             item.text = t_result.translations[0].translation;
             resolve();
           });
         });
+        pArr.push(p);
       }
     }
+
+    return(waitOnPromises(pArr));
   }
 </script>
-</html>
